@@ -15,15 +15,15 @@ export const Incomes = () => {
     const{incomes,cargando}=useBudget()
 
   return (
-    <div>
+    <div >
         <h1>Ingresos</h1>
+        <h4>
+       Total de Ingreso: $ {incomes.reduce((total:number,ingreso:incomeInterface)=> ingreso.amount+ total,0 )}
+        </h4>
         {!cargando ?incomes.map((income:incomeInterface)=> (
-          <Income income ={income} key={income.id ?? Math.random()}/>
+          <Income income ={income} key={income.id}/>
         )):<Cargando/>}
 
-        <p>
-       Total de Ingreso: $ {incomes.reduce((total:number,ingreso:incomeInterface)=> ingreso.amount+ total,0 )}
-        </p>
     </div>
   )
 }
