@@ -1,5 +1,6 @@
 import axios from "axios";
-import {createContext, useCallback, useEffect, useMemo, useState} from "react";
+import {createContext,  useEffect, useMemo, useState} from "react";
+
 
 type Props = {
     children: JSX.Element,
@@ -22,6 +23,7 @@ export const BuggetProvider = ({children}:Props)=>{
     const [incomeDescription , setIncomeDescription] = useState('')
     const [incomeAmount , setIncomeAmount] = useState(0)
     const [cargando, setCargando]= useState(false)
+
    
 
 
@@ -82,7 +84,8 @@ const createBill =async (bill:object) =>{
         
        const {data}= await axios.post(url,bill,config)
        
-        setBills([...bills,data.bill])
+       
+        setBills([...bills,data.dato])
         
     } catch (error) {
     console.log(error)
@@ -139,13 +142,78 @@ const createIncome =async (income:object) =>{
         const url = "http://127.0.0.1:3000/api/income"
         
        const {data}= await axios.post(url,income,config)
-       
-       setIncomes([...incomes,data.income])
+       console.log(data.dato)
+       setIncomes([...incomes,data.dato])
         
     } catch (error) {
     console.log(error)
     }
 }
+
+
+const eliminarIncome = async (id:number)=>{
+    const token = localStorage.getItem("x-token")
+    if(!token){
+        setAlerta({
+            msg:"No tienes autorizacion",
+            error:true
+        })
+        return
+    }
+    const config = {
+        headers:{
+            "Content-Type":"application/json",
+            "x-token":token
+        }
+    }
+
+    try {
+        
+        const url = `http://127.0.0.1:3000/api/income/${id}`
+        
+       const {data}= await axios.delete(url,config)
+       const incomesActualizados = incomes.filter((income:dataInterface)=> income.id !==id)
+
+       setIncomes(incomesActualizados)
+       console.log(data)
+        
+    } catch (error) {
+    console.log(error)
+    }
+}
+
+
+const eliminarGasto = async (id:number)=>{
+    const token = localStorage.getItem("x-token")
+    if(!token){
+        setAlerta({
+            msg:"No tienes autorizacion",
+            error:true
+        })
+        return
+    }
+    const config = {
+        headers:{
+            "Content-Type":"application/json",
+            "x-token":token
+        }
+    }
+
+    try {
+        
+        const url = `http://127.0.0.1:3000/api/gastos/${id}`
+        
+       const {data}= await axios.delete(url,config)
+       const billsActualizados = bills.filter((bill:dataInterface)=> bill.id !==id)
+
+       setBills(billsActualizados)
+       console.log(data)
+        
+    } catch (error) {
+    console.log(error)
+    }
+}
+
 
 
 
@@ -169,7 +237,10 @@ const createIncome =async (income:object) =>{
                 setIncomeDescription,
                 incomeAmount,
                 setIncomeAmount,
-                cargando
+                cargando,
+                eliminarGasto,
+                eliminarIncome
+                
 
             }}
         >

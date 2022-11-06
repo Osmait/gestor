@@ -13,7 +13,7 @@ export const RouteProtect = () => {
     {auth.id ?(
         <Outlet/>
     ):(
-        <Navigate to={'/login'}/>
+        <Navigate to='/login'/>
     )}
 
 

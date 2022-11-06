@@ -31,12 +31,12 @@ export const FormBill = () => {
 
   return (
     <>
-    <form onSubmit={handleSubmit}>
+    <form className="login" onSubmit={handleSubmit}>
         <label htmlFor="description">Description</label>
-        <input id="description" type={"text"} value={description} onChange={(e)=>setDescription(e.target.value)}/>
+        <input className="login_input" id="description" type={"text"} value={description} onChange={(e)=>setDescription(e.target.value)}/>
         <label htmlFor="amount">amount</label>
-        <input  id="amount" type={"number"} value={amount} onChange ={(e)=>setAmount(e.target.value)}/>
-        <input type={"submit"} value="Add"/>
+        <input className="login_input" id="amount" type={"number"} value={amount} onChange ={(e)=>setAmount(e.target.value)}/>
+        <input className="login_submit" type={"submit"} value="Add"/>
     </form>
     </>
   )

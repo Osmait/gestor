@@ -53,14 +53,14 @@ const handleSubmit = async(e: React.FormEvent<HTMLFormElement>)=> {
     const { msg } = alerta as alertaInterface
 
   return (
-    <div>
-        <form onSubmit={handleSubmit}>
-            {msg && <p>{msg}</p>}
+    <div >
+        <form className="login" onSubmit={handleSubmit}>
+            {msg && <p className="alerta" >{msg}</p>}
             <label htmlFor="email">Email</label>
-            <input id="email" type={"text"} placeholder= "Email" onChange={(e)=> setEmail(e.target.value)} value ={email}/>
+            <input className="login_input" id="email" type={"text"} placeholder= "Email" onChange={(e)=> setEmail(e.target.value)} value ={email}/>
             <label htmlFor="password" >Password</label>
-            <input id="password" type={"password"}placeholder="Password" onChange={(e)=> setPassword(e.target.value)} value={password}/>
-            <input type={"submit"} value="Login"/>
+            <input className="login_input" id="password" type={"password"}placeholder="Password" onChange={(e)=> setPassword(e.target.value)} value={password}/>
+            <input className="login_submit" type={"submit"} value="Login"/>
         </form>
     </div>
   )

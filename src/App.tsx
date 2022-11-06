@@ -1,6 +1,7 @@
 import {BrowserRouter,Route,Routes}from "react-router-dom"
 import { AuthProvider } from "./Context/AuthProvider"
 import { BuggetProvider } from "./Context/BudgetProvider"
+import { AuthLayout } from "./layout/AuthLayout"
 import { RouteProtect } from "./layout/RouteProtect"
 import { CreateBill } from "./page/CreateBill"
 import { CreateIncome } from "./page/CreateIncome"
@@ -14,7 +15,12 @@ function App() {
   <AuthProvider>
     <BuggetProvider>
   <Routes>
-    <Route path="/login" element= {<Login/>}/>
+    
+    <Route path="/login" element= {<AuthLayout/>}>
+    <Route index element={<Login/>}/>
+    </Route>
+    
+    
     <Route path="/" element = {<RouteProtect/>}>
     <Route index element={<Index/>}/>
     <Route path="/create-bill" element ={<CreateBill/>}/>

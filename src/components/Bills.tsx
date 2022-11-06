@@ -17,13 +17,13 @@ export const Bills = () => {
   return (
     <div>
       <h1>Gastos</h1>
+       <h4>
+       Total de Gastos: $ {bills.reduce((total:number,gasto:billsInterface)=> gasto.amount+ total,0 )}
+        </h4>
 
        {!cargando ? bills.map((bill:billsInterface)=>(
-        <Bill bill={bill} key={bill.id?? Math.random()}/>
+        <Bill bill={bill} key={bill.id}/>
        )): <Cargando/>}
-       <p>
-       Total de Gastos: $ {bills.reduce((total:number,gasto:billsInterface)=> gasto.amount+ total,0 )}
-        </p>
        
     </div>
   )

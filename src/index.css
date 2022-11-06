@@ -1,0 +1,132 @@
+:root {
+  --blanco: #fff;
+  --negor: #111111;
+  --gris: #343a40;
+
+  --fuentePrincipal: "Raleway", sans-serif;
+}
+/* Globales */
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: var(--fuentePrincipal);
+  font-size: 1.6rem;
+  line-height: 1.8;
+  background-color: #dae9ec;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 900;
+  line-height: 1.2;
+  margin: 1rem 0 4rem 0;
+}
+
+h1 {
+  font-size: 3.8rem;
+}
+
+h2 {
+  font-size: 5.8rem;
+}
+
+h3 {
+  font-size: 5rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+button {
+  padding: 1rem;
+  margin: 1rem;
+  border: none;
+  border-radius: 1rem;
+  transition: 0.3s;
+}
+button:hover {
+  background-color: #a1e8f7;
+}
+.alerta {
+  background-color: red;
+  color: white;
+  border-radius: 0.5rem;
+  padding: 2rem;
+}
+
+.contenedor {
+  max-width: 120rem;
+  margin: 0 auto;
+  width: 90%;
+}
+.contenedor_login {
+  margin-top: 20rem;
+}
+.login {
+  display: flex;
+  flex-direction: column;
+}
+.login_input {
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 0.4rem;
+  border: 0.1rem solid;
+}
+.login_submit {
+  margin-top: 1rem;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 0.1rem solid;
+}
+
+@media (min-width: 768px) {
+  .login_input {
+    max-width: 30%;
+  }
+  .login_submit {
+    max-width: 30%;
+  }
+}
+
+.login_submit:hover {
+  background-color: #17bcf0;
+}
+
+/* Inicio */
+
+@media (min-width: 768px) {
+  .contenido {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5rem;
+  }
+}
+
+.montos {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-top: 3rem;
+}
+
+.link {
+  margin: 1rem;
+  color: black;
+}
+.presupuesto {
+  font-size: 3rem;
+}

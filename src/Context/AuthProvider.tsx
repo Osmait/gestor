@@ -17,6 +17,7 @@ export const AuthProvider = ({children}:Props)=>{
         const authUser = async()=>{
             const token = localStorage.getItem("x-token")
             if(!token){
+                setCargando(false)
                 return
             }
             const config ={
@@ -30,10 +31,13 @@ export const AuthProvider = ({children}:Props)=>{
                 const url = "http://127.0.0.1:3000/api/perfil"
                 const {data}=  await axios(url,config)
                 setAuth(data)
+                console.log(data)
                 setCargando(false)
             } catch (error) {
                 setAuth({})
+                
                 console.log(error)
+                
             }
         }
         authUser()

@@ -5,8 +5,11 @@ import { Link } from "react-router-dom"
 
 export const CreateBill = () => {
   return (
-    <div>
-      <Link to={'/'} >Index</Link>
+    <div className="login">
+      <button >
+      <Link className='link' to={'/'} >Index</Link>
+
+      </button>
         <h2>Gastos</h2>
         <FormBill/>
     </div>
