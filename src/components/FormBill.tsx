@@ -1,9 +1,10 @@
+import { useNavigate } from "react-router-dom"
 import useBudget from "../hooks/useBudget"
 
 
 export const FormBill = () => {
     const{amount,setAmount,description,setDescription,setAlerta,createBill}=useBudget()
-    
+    const navigate = useNavigate()
     
     
     const handleSubmit =async (e: React.FormEvent<HTMLFormElement>) =>{
@@ -22,6 +23,10 @@ export const FormBill = () => {
        }
        
        await createBill(bill)
+       setAmount(0)
+       setDescription('')
+       navigate('/')
+       
      }
 
   return (

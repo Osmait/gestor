@@ -1,6 +1,8 @@
 
 import useBudget from '../hooks/useBudget'
-interface billsInterface{
+import { Bill } from './Bill'
+import { Cargando } from './Cargando'
+export interface billsInterface{
     id:number,
     description:string,
     amount:number,
@@ -9,18 +11,20 @@ interface billsInterface{
 }
 
 export const Bills = () => {
-    const{bills}=useBudget()
+    const{bills,cargando}=useBudget()
   
+
   return (
     <div>
-       {bills.bills.map((b:billsInterface)=>(
-        <div key={b.id}>
-        <p>{b.description}:{b.amount}</p>
-        
-        
-        </div>
-        
-       ))}
+      <h1>Gastos</h1>
+
+       {!cargando ? bills.map((bill:billsInterface)=>(
+        <Bill bill={bill} key={bill.id?? Math.random()}/>
+       )): <Cargando/>}
+       <p>
+       Total de Gastos: $ {bills.reduce((total:number,gasto:billsInterface)=> gasto.amount+ total,0 )}
+        </p>
+       
     </div>
   )
 }

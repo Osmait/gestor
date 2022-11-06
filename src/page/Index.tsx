@@ -1,14 +1,19 @@
+import { Link } from "react-router-dom"
 import { Bills } from "../components/Bills"
-import { FormBill } from "../components/FormBill"
+
+
+import { Incomes } from "../components/Incomes"
 
 
 export const Index = () => {
   return (
     <div>
       <h1>Welcome</h1>
-    <FormBill/>
-    <Bills/>
+    <Link to={'/create-bill'}>Create Bill</Link>
+    <Link to={'/create-income'}>Create Income</Link>
+      <Bills />
+      <Incomes />
+      
     </div>
-
-  )
+  );
 }

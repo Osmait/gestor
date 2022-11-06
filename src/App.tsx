@@ -2,6 +2,8 @@ import {BrowserRouter,Route,Routes}from "react-router-dom"
 import { AuthProvider } from "./Context/AuthProvider"
 import { BuggetProvider } from "./Context/BudgetProvider"
 import { RouteProtect } from "./layout/RouteProtect"
+import { CreateBill } from "./page/CreateBill"
+import { CreateIncome } from "./page/CreateIncome"
 import { Index } from "./page/Index"
 import { Login } from "./page/Login"
 function App() {
@@ -15,6 +17,8 @@ function App() {
     <Route path="/login" element= {<Login/>}/>
     <Route path="/" element = {<RouteProtect/>}>
     <Route index element={<Index/>}/>
+    <Route path="/create-bill" element ={<CreateBill/>}/>
+    <Route path="/create-income" element={<CreateIncome/>}/>
     </Route>
   </Routes>
     </BuggetProvider>

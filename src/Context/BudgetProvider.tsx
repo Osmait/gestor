@@ -1,5 +1,5 @@
 import axios from "axios";
-import {createContext, useEffect, useState} from "react";
+import {createContext, useCallback, useEffect, useMemo, useState} from "react";
 
 type Props = {
     children: JSX.Element,
@@ -18,36 +18,47 @@ export const BuggetProvider = ({children}:Props)=>{
     const [amount , setAmount] = useState(0)
     const [alerta, setAlerta] = useState({});
     const [bills, setBills]=useState([])
+    const [incomes, setIncomes]=useState([])
+    const [incomeDescription , setIncomeDescription] = useState('')
+    const [incomeAmount , setIncomeAmount] = useState(0)
+    const [cargando, setCargando]= useState(false)
+   
 
 
 
 
-useEffect(()=>{
-    const billsList = async () => {
-        const token = localStorage.getItem("x-token")
-        if(!token){
-            setAlerta({
-                msg:"No tienes autorizacion",
-                error:true
-            })
-            return
-        }
-        const config = {
-            headers:{
-                "content-Type":"application/json",
-                "x-token":token
+
+
+useMemo(()=>{
+
+        const billsList = async () => {
+            setCargando(true)
+            const token = localStorage.getItem("x-token")
+            if(!token){
+                setAlerta({
+                    msg:"No tienes autorizacion",
+                    error:true  
+                })
+                return
+            }
+            const config = {
+                headers:{
+                    "content-Type":"application/json",
+                    "x-token":token
+                }
+            }
+            try {
+                const url = "http://127.0.0.1:3000/api/gastos"
+                const {data} = await axios.get(url,config)
+                setBills(data.bills)
+                setCargando(false)
+            
+            } catch (error) {
+            console.log(error)
             }
         }
-        try {
-            const url = "http://127.0.0.1:3000/api/gastos"
-            const {data} = await axios.get(url,config)
-            setBills(data)
-        } catch (error) {
-        console.log(error)
-        }
-    }
-    billsList()
-},[,bills])
+        billsList()
+},[])
 
 const createBill =async (bill:object) =>{
     const token = localStorage.getItem("x-token")
@@ -68,14 +79,74 @@ const createBill =async (bill:object) =>{
     try {
 
         const url = "http://127.0.0.1:3000/api/gastos/"
-        console.log(bill)
+        
        const {data}= await axios.post(url,bill,config)
        
-        setBills([...bills,data])
+        setBills([...bills,data.bill])
+        
     } catch (error) {
     console.log(error)
     }
 }
+
+useEffect(()=>{
+    const incomeList = async () => {
+        setCargando(true)
+        const token = localStorage.getItem("x-token")
+        if(!token){
+            setAlerta({
+                msg:"No tienes autorizacion",
+                error:true  
+            })
+            return
+        }
+        const config = {
+            headers:{
+                "content-Type":"application/json",
+                "x-token":token
+            }
+        }
+        try {
+            const url = "http://127.0.0.1:3000/api/income"
+            const {data} = await axios.get(url,config)
+            setIncomes(data.income)
+            setCargando(false)
+        } catch (error) {
+        console.log(error)
+        }
+    }
+    incomeList()
+},[])
+
+const createIncome =async (income:object) =>{
+    const token = localStorage.getItem("x-token")
+    if(!token){
+        setAlerta({
+            msg:"No tienes autorizacion",
+            error:true
+        })
+        return
+    }
+    const config = {
+        headers:{
+            "Content-Type":"application/json",
+            "x-token":token
+        }
+    }
+
+    try {
+        
+        const url = "http://127.0.0.1:3000/api/income"
+        
+       const {data}= await axios.post(url,income,config)
+       
+       setIncomes([...incomes,data.income])
+        
+    } catch (error) {
+    console.log(error)
+    }
+}
+
 
 
 
@@ -91,7 +162,14 @@ const createBill =async (bill:object) =>{
                 createBill,
                 setAlerta,
                 alerta,
-                bills
+                bills,
+                incomes,
+                createIncome,
+                incomeDescription,
+                setIncomeDescription,
+                incomeAmount,
+                setIncomeAmount,
+                cargando
 
             }}
         >

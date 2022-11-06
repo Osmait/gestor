@@ -11,6 +11,7 @@ const AuthContext = createContext<any>(undefined)
 export const AuthProvider = ({children}:Props)=>{
 
     const [auth,setAuth]= useState({})
+    const [cargando, setCargando] = useState(true)
 
     useEffect(()=>{
         const authUser = async()=>{
@@ -29,6 +30,7 @@ export const AuthProvider = ({children}:Props)=>{
                 const url = "http://127.0.0.1:3000/api/perfil"
                 const {data}=  await axios(url,config)
                 setAuth(data)
+                setCargando(false)
             } catch (error) {
                 setAuth({})
                 console.log(error)
@@ -41,7 +43,8 @@ export const AuthProvider = ({children}:Props)=>{
     return(
         <AuthContext.Provider
             value={{
-                auth
+                auth,
+                cargando
 
             }}
         >
