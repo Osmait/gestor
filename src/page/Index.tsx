@@ -8,18 +8,13 @@ import useAuth from "../hooks/useAuth";
 import useBudget from "../hooks/useBudget";
 
 export const Index = () => {
-  const { incomes, bills } = useBudget();
+  const { incomes, bills, cerrarSession } = useBudget();
   const { auth } = useAuth();
   const [presupuesto, setPresupuesto] = useState(0);
-  const navigate = useNavigate();
+
   useEffect(() => {
     setPresupuesto(presupuestoDisponible(bills, incomes));
   }, [bills, incomes]);
-
-  const cerrarSession = () => {
-    localStorage.removeItem("x-token");
-    navigate("/login");
-  };
 
   return (
     <div>

@@ -44,7 +44,7 @@ export const FromIncome = () => {
     navigate("/");
   };
   return (
-    <>
+    <div className="contenedor ">
       <form className="login" onSubmit={handleSubmit}>
         <label htmlFor="description">Description</label>
         <input
@@ -64,6 +64,6 @@ export const FromIncome = () => {
         />
         <input className="login_submit" type={"submit"} value="Add" />
       </form>
-    </>
+    </div>
   );
 };

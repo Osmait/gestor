@@ -3,7 +3,7 @@
   --negor: #111111;
   --gris: #343a40;
 
-  --fuentePrincipal: "Raleway", sans-serif;
+  --fuentePrincipal: "Roboto", sans-serif;
 }
 /* Globales */
 html {
@@ -72,6 +72,8 @@ button:hover {
   max-width: 120rem;
   margin: 0 auto;
   width: 90%;
+  display: grid;
+  place-items: center;
 }
 .contenedor_login {
   margin-top: 20rem;
@@ -95,10 +97,10 @@ button:hover {
 
 @media (min-width: 768px) {
   .login_input {
-    max-width: 30%;
+    max-width: 100%;
   }
   .login_submit {
-    max-width: 30%;
+    max-width: 100%;
   }
 }
 
@@ -108,11 +110,15 @@ button:hover {
 
 /* Inicio */
 
+.contenido {
+  width: 100%;
+}
 @media (min-width: 768px) {
   .contenido {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 5fr);
     gap: 5rem;
+    width: 100%;
   }
 }
 
@@ -121,6 +127,8 @@ button:hover {
   border-radius: 0.5rem;
   padding: 1rem;
   margin-top: 3rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 .link {

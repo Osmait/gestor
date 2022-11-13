@@ -30,7 +30,7 @@ export const Registro = () => {
       last_name: apellido,
     };
     try {
-      const url = "http://127.0.0.1:3000/api/user";
+      const url = `${import.meta.env.VITE_URL_API}api/user`;
       const { data } = await axios.post(url, user);
 
       setAlerta({});

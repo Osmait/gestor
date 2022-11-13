@@ -26,8 +26,9 @@ export const AuthProvider = ({ children }: Props) => {
       };
 
       try {
-        const url = "http://127.0.0.1:3000/api/perfil";
+        const url = `${import.meta.env.VITE_URL_API}api/perfil`;
         const { data } = await axios(url, config);
+
         setAuth(data);
 
         setCargando(false);

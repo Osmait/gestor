@@ -43,7 +43,7 @@ export const FormBill = () => {
   };
 
   return (
-    <>
+    <div className="contenedor ">
       <form className="login" onSubmit={handleSubmit}>
         <label htmlFor="description">Description</label>
         <input
@@ -63,6 +63,6 @@ export const FormBill = () => {
         />
         <input className="login_submit" type={"submit"} value="Add" />
       </form>
-    </>
+    </div>
   );
 };

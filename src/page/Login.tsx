@@ -22,7 +22,7 @@ export const Login = () => {
 
   const navigate = useNavigate();
 
-  const { setAuth } = useAuth();
+  const { setAuth, setCargando } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,13 +35,15 @@ export const Login = () => {
       return;
     }
     try {
-      const url = "http://127.0.0.1:3000/api/login";
+      const url = `${import.meta.env.VITE_URL_API}api/login`;
+
       const { data } = await axios.post(url, { email, password });
       localStorage.setItem("x-token", data.token);
       setAlerta({});
       console.log(data);
       await setAuth(data.user);
       navigate("/");
+      setCargando(false);
     } catch (error) {
       setAlerta({
         msg: (error as errorInterfase).response.data.msg,
@@ -52,7 +54,7 @@ export const Login = () => {
   const { msg } = alerta as alertaInterface;
 
   return (
-    <div>
+    <div className="login_container">
       <form className="login" onSubmit={handleSubmit}>
         {msg && <p className="alerta">{msg}</p>}
         <label htmlFor="email">Email</label>

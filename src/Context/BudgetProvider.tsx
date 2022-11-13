@@ -1,7 +1,9 @@
 import axios from "axios";
 import { createContext, useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { billsInterface } from "../components/Bills";
 import { incomeInterface } from "../components/Incomes";
+import useAuth from "../hooks/useAuth";
 
 type Props = {
   children: JSX.Element;
@@ -25,6 +27,10 @@ export const BuggetProvider = ({ children }: Props) => {
   const [incomeAmount, setIncomeAmount] = useState(0);
   const [cargando, setCargando] = useState(false);
 
+  const navigate = useNavigate();
+
+  const { auth } = useAuth();
+
   useMemo(() => {
     const billsList = async () => {
       setCargando(true);
@@ -43,7 +49,7 @@ export const BuggetProvider = ({ children }: Props) => {
         },
       };
       try {
-        const url = "http://127.0.0.1:3000/api/gastos";
+        const url = `${import.meta.env.VITE_URL_API}api/gastos`;
         const { data } = await axios.get(url, config);
         setBills(data.bills);
         setCargando(false);
@@ -52,7 +58,7 @@ export const BuggetProvider = ({ children }: Props) => {
       }
     };
     billsList();
-  }, []);
+  }, [, auth]);
 
   const createBill = async (bill: object) => {
     const token = localStorage.getItem("x-token");
@@ -71,7 +77,7 @@ export const BuggetProvider = ({ children }: Props) => {
     };
 
     try {
-      const url = "http://127.0.0.1:3000/api/gastos/";
+      const url = `${import.meta.env.VITE_URL_API}api/gastos/`;
 
       const { data } = await axios.post(url, bill, config);
 
@@ -99,7 +105,7 @@ export const BuggetProvider = ({ children }: Props) => {
         },
       };
       try {
-        const url = "http://127.0.0.1:3000/api/income";
+        const url = `${import.meta.env.VITE_URL_API}api/income`;
         const { data } = await axios.get(url, config);
         setIncomes(data.income);
         setCargando(false);
@@ -108,7 +114,7 @@ export const BuggetProvider = ({ children }: Props) => {
       }
     };
     incomeList();
-  }, []);
+  }, [, auth]);
 
   const createIncome = async (income: object) => {
     const token = localStorage.getItem("x-token");
@@ -127,7 +133,7 @@ export const BuggetProvider = ({ children }: Props) => {
     };
 
     try {
-      const url = "http://127.0.0.1:3000/api/income";
+      const url = `${import.meta.env.VITE_URL_API}api/income`;
 
       const { data } = await axios.post(url, income, config);
 
@@ -154,7 +160,7 @@ export const BuggetProvider = ({ children }: Props) => {
     };
 
     try {
-      const url = `http://127.0.0.1:3000/api/income/${id}`;
+      const url = `${import.meta.env.VITE_URL_API}api/income/${id}`;
 
       const { data } = await axios.delete(url, config);
       const incomesActualizados = incomes.filter(
@@ -184,7 +190,7 @@ export const BuggetProvider = ({ children }: Props) => {
     };
 
     try {
-      const url = `http://127.0.0.1:3000/api/gastos/${id}`;
+      const url = `${import.meta.env.VITE_URL_API}api/gastos/${id}`;
 
       const { data } = await axios.delete(url, config);
       const billsActualizados = bills.filter(
@@ -214,7 +220,7 @@ export const BuggetProvider = ({ children }: Props) => {
     };
 
     try {
-      const url = `http://127.0.0.1:3000/api/gastos/${id}`;
+      const url = `${import.meta.env.VITE_URL_API}api/gastos/${id}`;
 
       const { data } = await axios.put(url, bill, config);
       const { billDB } = data;
@@ -245,7 +251,7 @@ export const BuggetProvider = ({ children }: Props) => {
     };
 
     try {
-      const url = `http://127.0.0.1:3000/api/income/${id}`;
+      const url = `${import.meta.env.VITE_URL_API}api/income/${id}`;
 
       const { data } = await axios.put(url, income, config);
       const { incomeDB } = data;
@@ -258,6 +264,20 @@ export const BuggetProvider = ({ children }: Props) => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const cerrarSession = () => {
+    localStorage.removeItem("x-token");
+    setIncomes([]);
+    setBills([]);
+    setDescription("");
+    setAmount(0);
+    setAlerta({});
+    setIncomeDescription("");
+    setIncomeAmount(0);
+    setCargando(false);
+
+    navigate("/login");
   };
 
   return (
@@ -282,6 +302,7 @@ export const BuggetProvider = ({ children }: Props) => {
         eliminarIncome,
         editandoBill,
         editandoincome,
+        cerrarSession,
       }}
     >
       {children}
