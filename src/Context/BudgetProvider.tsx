@@ -21,8 +21,8 @@ export const BuggetProvider = ({ children }: Props) => {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState(0);
   const [alerta, setAlerta] = useState({});
-  const [bills, setBills] = useState([]);
-  const [incomes, setIncomes] = useState([]);
+  const [bills, setBills] = useState<any[]>([]);
+  const [incomes, setIncomes] = useState<any[]>([]);
   const [incomeDescription, setIncomeDescription] = useState("");
   const [incomeAmount, setIncomeAmount] = useState(0);
   const [cargando, setCargando] = useState(false);
