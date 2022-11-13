@@ -40,7 +40,7 @@ export const Login = () => {
       const { data } = await axios.post(url, { email, password });
       localStorage.setItem("x-token", data.token);
       setAlerta({});
-      console.log(data);
+
       await setAuth(data.user);
       navigate("/");
       setCargando(false);
