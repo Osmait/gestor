@@ -160,6 +160,7 @@ export const BuggetProvider = ({ children }: Props) => {
     };
 
     try {
+      setCargando(true);
       const url = `${import.meta.env.VITE_URL_API}api/income/${id}`;
 
       const { data } = await axios.delete(url, config);
@@ -168,6 +169,7 @@ export const BuggetProvider = ({ children }: Props) => {
       );
 
       setIncomes(incomesActualizados);
+      setCargando(false);
     } catch (error) {
       console.log(error);
     }
@@ -190,6 +192,7 @@ export const BuggetProvider = ({ children }: Props) => {
     };
 
     try {
+      setCargando(true);
       const url = `${import.meta.env.VITE_URL_API}api/gastos/${id}`;
 
       const { data } = await axios.delete(url, config);
@@ -198,6 +201,7 @@ export const BuggetProvider = ({ children }: Props) => {
       );
 
       setBills(billsActualizados);
+      setCargando(false);
     } catch (error) {
       console.log(error);
     }

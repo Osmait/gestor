@@ -47,6 +47,7 @@ export const AuthProvider = ({ children }: Props) => {
         auth,
         cargando,
         setAuth,
+        setCargando,
       }}
     >
       {children}
