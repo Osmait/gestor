@@ -10,6 +10,7 @@ export const Registro = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [alerta, setAlerta] = useState({});
+  const [rePassword, setRePassword] = useState("");
 
   const navigate = useNavigate();
 
@@ -18,6 +19,13 @@ export const Registro = () => {
     if ([email, password, nombre, apellido].includes("")) {
       setAlerta({
         msg: "Todos los Campos son Obligatorios",
+        error: true,
+      });
+      return;
+    }
+    if (password !== rePassword) {
+      setAlerta({
+        msg: "password and Repeat password must match",
         error: true,
       });
       return;
@@ -52,7 +60,15 @@ export const Registro = () => {
       <h1 className="text-4xl text-white mb-3">Register</h1>
 
       <form onSubmit={handleSubmit}>
-        {msg && <p className="alerta">{msg}</p>}
+        {msg && (
+          <div
+            className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+            role="alert"
+          >
+            <span className="font-medium"></span>
+            {msg}
+          </div>
+        )}
         <div className="mb-6">
           <label
             htmlFor="name"
@@ -131,6 +147,8 @@ export const Registro = () => {
             type="password"
             id="repeat-password"
             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            value={rePassword}
+            onChange={(e) => setRePassword(e.target.value)}
             required
           />
         </div>
